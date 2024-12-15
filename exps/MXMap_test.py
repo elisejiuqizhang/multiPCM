@@ -15,7 +15,7 @@ from utils.MXMap import MXMap
 import argparse
 parser=argparse.ArgumentParser("single experiment of MXMap on simulated data")
 parser.add_argument('--data_dir', type=str, default='data_files/data/gen')
-parser.add_argument('--causality_type', type=str, default='3V_indirect', help='Options: 3V_direct, 3V_indirect, 3V_both_Cycle, 3V_both_noCycle, 4V_direct, 4V_indirect, 4V_both_Cycle, 4V_both_noCycle')
+parser.add_argument('--causality_type', type=str, default='4V_both_noCycle', help='Options: 3V_direct, 3V_indirect, 3V_both_Cycle, 3V_both_noCycle, 4V_direct, 4V_indirect, 4V_both_Cycle, 4V_both_noCycle')
 
 parser.add_argument('--seed', type=int, default=197, help='random seed, for sampling a random start point for input time series')
 

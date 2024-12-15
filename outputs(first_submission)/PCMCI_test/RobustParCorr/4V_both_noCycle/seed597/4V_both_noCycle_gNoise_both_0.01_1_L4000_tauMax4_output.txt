@@ -1,0 +1,124 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = robust_par_corr
+tau_min = 1
+tau_max = 4
+pc_alpha = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable W has 8 link(s):
+    [pc_alpha = 0.4]
+        (W -1): max_pval = 0.00000, |min_val| =  0.618
+        (W -2): max_pval = 0.00000, |min_val| =  0.220
+        (X -1): max_pval = 0.00000, |min_val| =  0.158
+        (X -4): max_pval = 0.00000, |min_val| =  0.095
+        (X -2): max_pval = 0.00021, |min_val| =  0.059
+        (W -3): max_pval = 0.00180, |min_val| =  0.049
+        (W -4): max_pval = 0.14998, |min_val| =  0.023
+        (Y -4): max_pval = 0.35732, |min_val| =  0.015
+
+    Variable X has 7 link(s):
+    [pc_alpha = 0.3]
+        (X -1): max_pval = 0.00000, |min_val| =  0.683
+        (X -2): max_pval = 0.00000, |min_val| =  0.270
+        (X -3): max_pval = 0.00000, |min_val| =  0.082
+        (X -4): max_pval = 0.00011, |min_val| =  0.061
+        (Y -1): max_pval = 0.00034, |min_val| =  0.057
+        (W -1): max_pval = 0.12627, |min_val| =  0.024
+        (W -3): max_pval = 0.29804, |min_val| =  0.016
+
+    Variable Y has 11 link(s):
+    [pc_alpha = 0.4]
+        (Y -1): max_pval = 0.00000, |min_val| =  0.385
+        (X -1): max_pval = 0.00000, |min_val| =  0.138
+        (Z -1): max_pval = 0.00000, |min_val| =  0.134
+        (Z -2): max_pval = 0.00000, |min_val| =  0.121
+        (X -2): max_pval = 0.00000, |min_val| =  0.114
+        (Y -2): max_pval = 0.00000, |min_val| =  0.080
+        (Y -4): max_pval = 0.00008, |min_val| =  0.063
+        (X -3): max_pval = 0.04056, |min_val| =  0.032
+        (Z -3): max_pval = 0.17646, |min_val| =  0.021
+        (W -3): max_pval = 0.38012, |min_val| =  0.014
+        (Y -3): max_pval = 0.39060, |min_val| =  0.014
+
+    Variable Z has 7 link(s):
+    [pc_alpha = 0.3]
+        (Z -1): max_pval = 0.00000, |min_val| =  0.612
+        (Z -2): max_pval = 0.00000, |min_val| =  0.193
+        (W -1): max_pval = 0.00000, |min_val| =  0.145
+        (W -4): max_pval = 0.00010, |min_val| =  0.062
+        (W -3): max_pval = 0.18492, |min_val| =  0.021
+        (Z -3): max_pval = 0.25268, |min_val| =  0.018
+        (Y -1): max_pval = 0.27620, |min_val| =  0.017
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = robust_par_corr
+tau_min = 0
+tau_max = 4
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable W has 13 link(s):
+        (W -1): pval = 0.00000 | val = -0.642
+        (W -2): pval = 0.00000 | val = -0.333
+        (W -3): pval = 0.00000 | val = -0.246
+        (X -1): pval = 0.00000 | val = -0.141
+        (X -4): pval = 0.00000 | val = -0.104
+        (X -2): pval = 0.00000 | val =  0.078
+        (W -4): pval = 0.00020 | val = -0.059
+        (X  0): pval = 0.00102 | val =  0.052 | unoriented link
+        (Y  0): pval = 0.00276 | val =  0.047 | unoriented link
+        (Z -1): pval = 0.00970 | val = -0.041
+        (Z -2): pval = 0.00992 | val = -0.041
+        (Y -4): pval = 0.03169 | val = -0.034
+        (X -3): pval = 0.03654 | val =  0.033
+
+    Variable X has 8 link(s):
+        (X -1): pval = 0.00000 | val = -0.755
+        (X -2): pval = 0.00000 | val = -0.533
+        (X -3): pval = 0.00000 | val = -0.450
+        (X -4): pval = 0.00000 | val = -0.335
+        (W  0): pval = 0.00102 | val =  0.052 | unoriented link
+        (Y -1): pval = 0.00327 | val = -0.047
+        (W -1): pval = 0.00711 | val = -0.043
+        (Y -3): pval = 0.01326 | val = -0.039
+
+    Variable Y has 12 link(s):
+        (Y -1): pval = 0.00000 | val = -0.442
+        (Y -2): pval = 0.00000 | val = -0.196
+        (Z -2): pval = 0.00000 | val =  0.151
+        (X -2): pval = 0.00000 | val =  0.147
+        (Y -3): pval = 0.00000 | val = -0.133
+        (Z -1): pval = 0.00000 | val = -0.127
+        (X -1): pval = 0.00000 | val = -0.110
+        (Z  0): pval = 0.00000 | val =  0.085 | unoriented link
+        (Y -4): pval = 0.00000 | val =  0.084
+        (Z -3): pval = 0.00028 | val =  0.058
+        (X -3): pval = 0.00055 | val =  0.055
+        (W  0): pval = 0.00276 | val =  0.047 | unoriented link
+
+    Variable Z has 8 link(s):
+        (Z -1): pval = 0.00000 | val = -0.645
+        (Z -2): pval = 0.00000 | val = -0.347
+        (Z -3): pval = 0.00000 | val = -0.246
+        (W -1): pval = 0.00000 | val = -0.151
+        (W -3): pval = 0.00000 | val =  0.107
+        (Y  0): pval = 0.00000 | val =  0.085 | unoriented link
+        (Y -4): pval = 0.00525 | val =  0.044
+        (Y -3): pval = 0.04496 | val =  0.032

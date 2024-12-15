@@ -1,0 +1,71 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = par_corr
+tau_min = 1
+tau_max = 4
+pc_alpha = [0.1]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable X has 2 link(s):
+        (X -1): max_pval = 0.00000, |min_val| =  0.565
+        (X -3): max_pval = 0.00000, |min_val| =  0.216
+
+    Variable Y has 4 link(s):
+        (Y -1): max_pval = 0.00000, |min_val| =  0.448
+        (X -4): max_pval = 0.00000, |min_val| =  0.273
+        (Y -4): max_pval = 0.00000, |min_val| =  0.125
+        (Y -3): max_pval = 0.00000, |min_val| =  0.112
+
+    Variable Z has 3 link(s):
+        (Z -1): max_pval = 0.00000, |min_val| =  0.561
+        (Y -1): max_pval = 0.00000, |min_val| =  0.158
+        (Z -4): max_pval = 0.00000, |min_val| =  0.128
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = par_corr
+tau_min = 0
+tau_max = 4
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable X has 4 link(s):
+        (X -1): pval = 0.00000 | val = -0.569
+        (X -3): pval = 0.00000 | val = -0.233
+        (X -4): pval = 0.00000 | val = -0.095
+        (X -2): pval = 0.00000 | val = -0.083
+
+    Variable Y has 9 link(s):
+        (Y -1): pval = 0.00000 | val = -0.428
+        (X -1): pval = 0.00000 | val = -0.240
+        (X -2): pval = 0.00000 | val =  0.209
+        (Y -3): pval = 0.00000 | val = -0.145
+        (X -4): pval = 0.00000 | val = -0.144
+        (Y -4): pval = 0.00000 | val =  0.138
+        (X -3): pval = 0.00000 | val = -0.077
+        (Z -4): pval = 0.00000 | val =  0.076
+        (Z -2): pval = 0.00000 | val =  0.066
+
+    Variable Z has 7 link(s):
+        (Z -1): pval = 0.00000 | val = -0.525
+        (Y -1): pval = 0.00000 | val = -0.211
+        (Z -4): pval = 0.00000 | val =  0.184
+        (Z -3): pval = 0.00000 | val = -0.134
+        (X -3): pval = 0.00000 | val = -0.123
+        (Y -4): pval = 0.00000 | val = -0.087
+        (Y -3): pval = 0.00000 | val =  0.068

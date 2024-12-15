@@ -1,0 +1,109 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = robust_par_corr
+tau_min = 1
+tau_max = 6
+pc_alpha = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable X has 7 link(s):
+    [pc_alpha = 0.4]
+        (X -1): max_pval = 0.00000, |min_val| =  0.676
+        (X -2): max_pval = 0.00000, |min_val| =  0.198
+        (X -3): max_pval = 0.00000, |min_val| =  0.141
+        (X -4): max_pval = 0.00000, |min_val| =  0.085
+        (X -6): max_pval = 0.19454, |min_val| =  0.022
+        (X -5): max_pval = 0.31392, |min_val| =  0.017
+        (Y -3): max_pval = 0.37641, |min_val| =  0.015
+
+    Variable Y has 11 link(s):
+    [pc_alpha = 0.5]
+        (Y -1): max_pval = 0.00000, |min_val| =  0.522
+        (Y -2): max_pval = 0.00000, |min_val| =  0.163
+        (X -1): max_pval = 0.00000, |min_val| =  0.152
+        (Y -3): max_pval = 0.00000, |min_val| =  0.134
+        (Z -1): max_pval = 0.00000, |min_val| =  0.110
+        (Z -2): max_pval = 0.04717, |min_val| =  0.034
+        (X -2): max_pval = 0.05728, |min_val| =  0.032
+        (Y -4): max_pval = 0.12542, |min_val| =  0.026
+        (X -4): max_pval = 0.15129, |min_val| =  0.024
+        (X -6): max_pval = 0.40307, |min_val| =  0.014
+        (Y -6): max_pval = 0.49977, |min_val| =  0.011
+
+    Variable Z has 10 link(s):
+    [pc_alpha = 0.5]
+        (Z -1): max_pval = 0.00000, |min_val| =  0.572
+        (Z -4): max_pval = 0.00000, |min_val| =  0.254
+        (Z -2): max_pval = 0.00000, |min_val| =  0.184
+        (X -5): max_pval = 0.00000, |min_val| =  0.145
+        (X -1): max_pval = 0.00000, |min_val| =  0.124
+        (Z -5): max_pval = 0.00000, |min_val| =  0.079
+        (X -2): max_pval = 0.25797, |min_val| =  0.019
+        (Y -6): max_pval = 0.30752, |min_val| =  0.017
+        (Y -3): max_pval = 0.46737, |min_val| =  0.012
+        (X -3): max_pval = 0.48149, |min_val| =  0.012
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = robust_par_corr
+tau_min = 0
+tau_max = 6
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable X has 8 link(s):
+        (X -1): pval = 0.00000 | val = -0.767
+        (X -2): pval = 0.00000 | val = -0.544
+        (X -3): pval = 0.00000 | val = -0.524
+        (X -4): pval = 0.00000 | val = -0.425
+        (X -5): pval = 0.00000 | val = -0.375
+        (X -6): pval = 0.00000 | val = -0.320
+        (Y  0): pval = 0.01215 | val =  0.043 | unoriented link
+        (Y -1): pval = 0.02194 | val = -0.039
+
+    Variable Y has 16 link(s):
+        (Y -1): pval = 0.00000 | val = -0.563
+        (Y -2): pval = 0.00000 | val = -0.335
+        (Z  0): pval = 0.00000 | val =  0.254 | unoriented link
+        (Y -3): pval = 0.00000 | val = -0.227
+        (Z -2): pval = 0.00000 | val =  0.199
+        (X -1): pval = 0.00000 | val = -0.150
+        (Z -3): pval = 0.00000 | val =  0.148
+        (X -4): pval = 0.00000 | val = -0.110
+        (Z -1): pval = 0.00000 | val = -0.098
+        (Y -6): pval = 0.00000 | val =  0.088
+        (X -2): pval = 0.00000 | val =  0.083
+        (Y -4): pval = 0.00000 | val =  0.078
+        (X -6): pval = 0.00001 | val = -0.074
+        (Z -6): pval = 0.00159 | val = -0.054
+        (Z -5): pval = 0.00668 | val =  0.046
+        (X  0): pval = 0.01215 | val =  0.043 | unoriented link
+
+    Variable Z has 12 link(s):
+        (Z -1): pval = 0.00000 | val = -0.596
+        (Z -2): pval = 0.00000 | val = -0.292
+        (Z -4): pval = 0.00000 | val =  0.280
+        (Y  0): pval = 0.00000 | val =  0.254 | unoriented link
+        (Z -3): pval = 0.00000 | val = -0.201
+        (X -5): pval = 0.00000 | val =  0.162
+        (X -1): pval = 0.00000 | val = -0.118
+        (Z -5): pval = 0.00000 | val =  0.113
+        (Y -2): pval = 0.00000 | val =  0.100
+        (Z -6): pval = 0.00000 | val =  0.087
+        (X -2): pval = 0.00002 | val =  0.072
+        (X -3): pval = 0.00077 | val =  0.057

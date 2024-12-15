@@ -1,0 +1,27 @@
+
+## Significant links at alpha = 0.05:
+
+    Variable X has 4 link(s):
+        (X -1): pval = 0.00000 | val = -0.629
+        (X -3): pval = 0.00000 | val = -0.266
+        (X -2): pval = 0.00000 | val = -0.191
+        (X -4): pval = 0.00000 | val = -0.118
+
+    Variable Y has 8 link(s):
+        (Y -1): pval = 0.00000 | val = -0.417
+        (X -1): pval = 0.00000 | val = -0.166
+        (X -4): pval = 0.00000 | val = -0.099
+        (Y -3): pval = 0.00000 | val = -0.099
+        (X -2): pval = 0.00000 | val =  0.080
+        (Y -4): pval = 0.00000 | val =  0.078
+        (X -3): pval = 0.00047 | val =  0.059
+        (Y -2): pval = 0.04734 | val =  0.034
+
+    Variable Z has 7 link(s):
+        (Z -1): pval = 0.00000 | val = -0.491
+        (Y -1): pval = 0.00000 | val = -0.218
+        (Z -3): pval = 0.00000 | val = -0.131
+        (Y -4): pval = 0.00000 | val = -0.115
+        (Z -4): pval = 0.00000 | val =  0.098
+        (X -3): pval = 0.04037 | val = -0.035
+        (Y -2): pval = 0.04855 | val =  0.033

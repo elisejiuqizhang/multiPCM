@@ -1,0 +1,43 @@
+
+## Significant links at alpha = 0.01:
+
+    Variable W has 6 link(s):
+        (W -1): pval = 0.00000 | val = -0.749
+        (W -2): pval = 0.00000 | val = -0.507
+        (W -3): pval = 0.00000 | val = -0.494
+        (W -4): pval = 0.00000 | val = -0.400
+        (X -1): pval = 0.00051 | val = -0.059
+        (X  0): pval = 0.00069 | val = -0.057
+
+    Variable X has 10 link(s):
+        (X -1): pval = 0.00000 | val = -0.610
+        (X -2): pval = 0.00000 | val = -0.312
+        (X -3): pval = 0.00000 | val = -0.207
+        (W -1): pval = 0.00000 | val = -0.149
+        (W -4): pval = 0.00000 | val = -0.148
+        (X -4): pval = 0.00000 | val =  0.087
+        (W -2): pval = 0.00000 | val =  0.079
+        (Y -1): pval = 0.00066 | val = -0.058
+        (W  0): pval = 0.00069 | val = -0.057
+        (Y -2): pval = 0.00104 | val = -0.056
+
+    Variable Y has 8 link(s):
+        (Y -1): pval = 0.00000 | val = -0.668
+        (Y -2): pval = 0.00000 | val = -0.388
+        (Y -3): pval = 0.00000 | val = -0.270
+        (X -1): pval = 0.00000 | val = -0.198
+        (W -2): pval = 0.00022 | val = -0.063
+        (W -3): pval = 0.00028 | val = -0.062
+        (Z -2): pval = 0.00091 | val = -0.056
+        (X -4): pval = 0.00142 | val = -0.054
+
+    Variable Z has 9 link(s):
+        (Z -1): pval = 0.00000 | val = -0.676
+        (Z -2): pval = 0.00000 | val = -0.380
+        (Z -3): pval = 0.00000 | val = -0.282
+        (Y -1): pval = 0.00000 | val = -0.140
+        (Y -4): pval = 0.00000 | val = -0.109
+        (Y -2): pval = 0.00000 | val =  0.100
+        (Y -3): pval = 0.00011 | val =  0.066
+        (X -3): pval = 0.00048 | val = -0.059
+        (Z -4): pval = 0.00986 | val = -0.044

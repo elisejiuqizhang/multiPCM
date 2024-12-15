@@ -1,0 +1,109 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = par_corr
+tau_min = 1
+tau_max = 4
+pc_alpha = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable X has 7 link(s):
+    [pc_alpha = 0.5]
+        (X -1): max_pval = 0.00000, |min_val| =  0.496
+        (X -4): max_pval = 0.00000, |min_val| =  0.184
+        (X -3): max_pval = 0.00000, |min_val| =  0.159
+        (Z -4): max_pval = 0.02405, |min_val| =  0.036
+        (Y -3): max_pval = 0.03264, |min_val| =  0.034
+        (X -2): max_pval = 0.21734, |min_val| =  0.020
+        (Z -2): max_pval = 0.44898, |min_val| =  0.012
+
+    Variable Y has 10 link(s):
+    [pc_alpha = 0.4]
+        (Y -1): max_pval = 0.00000, |min_val| =  0.270
+        (X -1): max_pval = 0.00000, |min_val| =  0.169
+        (Z -3): max_pval = 0.00000, |min_val| =  0.124
+        (Z -1): max_pval = 0.00000, |min_val| =  0.114
+        (X -2): max_pval = 0.00000, |min_val| =  0.096
+        (Y -2): max_pval = 0.00005, |min_val| =  0.064
+        (X -4): max_pval = 0.00382, |min_val| =  0.046
+        (Y -4): max_pval = 0.02601, |min_val| =  0.035
+        (Y -3): max_pval = 0.05329, |min_val| =  0.031
+        (Z -2): max_pval = 0.36304, |min_val| =  0.014
+
+    Variable Z has 10 link(s):
+    [pc_alpha = 0.3]
+        (Y -3): max_pval = 0.00000, |min_val| =  0.415
+        (Z -1): max_pval = 0.00000, |min_val| =  0.347
+        (Y -1): max_pval = 0.00000, |min_val| =  0.231
+        (Z -2): max_pval = 0.00000, |min_val| =  0.221
+        (Z -3): max_pval = 0.00000, |min_val| =  0.195
+        (Z -4): max_pval = 0.00000, |min_val| =  0.119
+        (X -3): max_pval = 0.00322, |min_val| =  0.047
+        (Y -4): max_pval = 0.01374, |min_val| =  0.039
+        (X -2): max_pval = 0.03773, |min_val| =  0.033
+        (Y -2): max_pval = 0.27864, |min_val| =  0.017
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = par_corr
+tau_min = 0
+tau_max = 4
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable X has 11 link(s):
+        (X -1): pval = 0.00000 | val = -0.487
+        (Y -4): pval = 0.00000 | val = -0.209
+        (Y  0): pval = 0.00000 | val = -0.194 | unoriented link
+        (X -3): pval = 0.00000 | val = -0.130
+        (Y -3): pval = 0.00000 | val = -0.124
+        (X -2): pval = 0.00000 | val = -0.122
+        (Z -2): pval = 0.00000 | val =  0.113
+        (Y -1): pval = 0.00000 | val = -0.104
+        (Z  0): pval = 0.00000 | val =  0.088 | unoriented link
+        (X -4): pval = 0.00001 | val =  0.071
+        (Z -4): pval = 0.04340 | val =  0.032
+
+    Variable Y has 13 link(s):
+        (Y -1): pval = 0.00000 | val = -0.457
+        (Y -2): pval = 0.00000 | val = -0.408
+        (Z  0): pval = 0.00000 | val = -0.318 | unoriented link
+        (X -2): pval = 0.00000 | val = -0.285
+        (X -3): pval = 0.00000 | val = -0.284
+        (X -1): pval = 0.00000 | val = -0.281
+        (X  0): pval = 0.00000 | val = -0.194 | unoriented link
+        (Y -3): pval = 0.00000 | val = -0.165
+        (Z -1): pval = 0.00000 | val = -0.131
+        (Z -2): pval = 0.00000 | val = -0.112
+        (X -4): pval = 0.00000 | val = -0.093
+        (Y -4): pval = 0.00212 | val =  0.049
+        (Z -3): pval = 0.04332 | val =  0.032
+
+    Variable Z has 13 link(s):
+        (Y -1): pval = 0.00000 | val = -0.615
+        (Y -3): pval = 0.00000 | val =  0.438
+        (Z -1): pval = 0.00000 | val = -0.353
+        (Y  0): pval = 0.00000 | val = -0.318 | unoriented link
+        (X -2): pval = 0.00000 | val =  0.215
+        (X -3): pval = 0.00000 | val =  0.209
+        (Z -4): pval = 0.00000 | val =  0.193
+        (Z -2): pval = 0.00000 | val =  0.151
+        (Z -3): pval = 0.00000 | val = -0.121
+        (X -4): pval = 0.00000 | val =  0.118
+        (X -1): pval = 0.00000 | val =  0.109
+        (X  0): pval = 0.00000 | val =  0.088 | unoriented link
+        (Y -2): pval = 0.00001 | val = -0.071

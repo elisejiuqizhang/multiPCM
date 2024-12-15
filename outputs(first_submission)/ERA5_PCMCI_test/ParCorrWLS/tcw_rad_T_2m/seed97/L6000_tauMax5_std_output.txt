@@ -1,0 +1,72 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = par_corr_wls
+tau_min = 1
+tau_max = 5
+pc_alpha = [0.4]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable tcw has 2 link(s):
+        (tcw -1): max_pval = 0.00000, |min_val| =  0.853
+        (tcw -2): max_pval = 0.00000, |min_val| =  0.434
+
+    Variable rad has 2 link(s):
+        (rad -1): max_pval = 0.00000, |min_val| =  0.892
+        (rad -2): max_pval = 0.00000, |min_val| =  0.643
+
+    Variable T_2m has 2 link(s):
+        (T_2m -1): max_pval = 0.00000, |min_val| =  0.764
+        (T_2m -4): max_pval = 0.00000, |min_val| =  0.410
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = par_corr_wls
+tau_min = 0
+tau_max = 5
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable tcw has 5 link(s):
+        (tcw -1): pval = 0.00000 | val =  0.853
+        (tcw -2): pval = 0.00000 | val = -0.409
+        (tcw -3): pval = 0.00000 | val =  0.102
+        (tcw -4): pval = 0.00000 | val =  0.066
+        (T_2m -2): pval = 0.00000 | val =  0.050
+
+    Variable rad has 10 link(s):
+        (rad -1): pval = 0.00000 | val =  0.892
+        (rad -2): pval = 0.00000 | val = -0.548
+        (T_2m  0): pval = 0.00000 | val =  0.333 | unoriented link
+        (rad -3): pval = 0.00000 | val =  0.134
+        (rad -4): pval = 0.00000 | val =  0.124
+        (rad -5): pval = 0.00000 | val =  0.109
+        (T_2m -3): pval = 0.00000 | val =  0.082
+        (T_2m -2): pval = 0.00000 | val =  0.075
+        (T_2m -4): pval = 0.00000 | val = -0.064
+        (T_2m -1): pval = 0.00000 | val =  0.050
+
+    Variable T_2m has 9 link(s):
+        (T_2m -1): pval = 0.00000 | val =  0.719
+        (rad  0): pval = 0.00000 | val =  0.333 | unoriented link
+        (rad -1): pval = 0.00000 | val =  0.280
+        (rad -5): pval = 0.00000 | val = -0.168
+        (T_2m -4): pval = 0.00000 | val = -0.150
+        (rad -4): pval = 0.00000 | val = -0.140
+        (tcw -1): pval = 0.00000 | val =  0.082
+        (tcw -2): pval = 0.00000 | val =  0.071
+        (rad -3): pval = 0.00000 | val = -0.059

@@ -1,0 +1,7 @@
+digraph {
+	X -> W
+	Y -> X
+	W -> Z
+	Z -> X
+	Z -> Y
+}

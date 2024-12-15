@@ -1,0 +1,64 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = par_corr_wls
+tau_min = 1
+tau_max = 2
+pc_alpha = [0.4]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable tcw has 2 link(s):
+        (tcw -1): max_pval = 0.00000, |min_val| =  0.875
+        (tcw -2): max_pval = 0.00000, |min_val| =  0.595
+
+    Variable rad has 2 link(s):
+        (rad -1): max_pval = 0.00000, |min_val| =  0.916
+        (rad -2): max_pval = 0.00000, |min_val| =  0.708
+
+    Variable T_2m has 1 link(s):
+        (T_2m -1): max_pval = 0.00000, |min_val| =  0.778
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = par_corr_wls
+tau_min = 0
+tau_max = 2
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable tcw has 5 link(s):
+        (tcw -1): pval = 0.00000 | val =  0.847
+        (tcw -2): pval = 0.00000 | val = -0.418
+        (T_2m  0): pval = 0.00000 | val =  0.076 | unoriented link
+        (T_2m -2): pval = 0.00000 | val =  0.072
+        (T_2m -1): pval = 0.00000 | val =  0.068
+
+    Variable rad has 5 link(s):
+        (rad -1): pval = 0.00000 | val =  0.885
+        (rad -2): pval = 0.00000 | val = -0.523
+        (T_2m  0): pval = 0.00000 | val =  0.346 | unoriented link
+        (T_2m -2): pval = 0.00000 | val =  0.074
+        (T_2m -1): pval = 0.00000 | val =  0.055
+
+    Variable T_2m has 7 link(s):
+        (T_2m -1): pval = 0.00000 | val =  0.778
+        (rad -1): pval = 0.00000 | val =  0.390
+        (rad  0): pval = 0.00000 | val =  0.346 | unoriented link
+        (rad -2): pval = 0.00000 | val =  0.153
+        (tcw -1): pval = 0.00000 | val =  0.085
+        (tcw  0): pval = 0.00000 | val =  0.076 | unoriented link
+        (tcw -2): pval = 0.00000 | val =  0.070

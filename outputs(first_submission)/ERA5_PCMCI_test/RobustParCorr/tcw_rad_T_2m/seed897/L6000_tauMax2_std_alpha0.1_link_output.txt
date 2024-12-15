@@ -1,0 +1,26 @@
+
+## Significant links at alpha = 0.1:
+
+    Variable tcw has 5 link(s):
+        (tcw -1): pval = 0.00000 | val =  0.847
+        (tcw -2): pval = 0.00000 | val = -0.342
+        (rad  0): pval = 0.00000 | val =  0.080
+        (T_2m  0): pval = 0.00000 | val =  0.071
+        (T_2m -1): pval = 0.00000 | val =  0.064
+
+    Variable rad has 6 link(s):
+        (rad -1): pval = 0.00000 | val =  0.822
+        (T_2m  0): pval = 0.00000 | val =  0.372
+        (rad -2): pval = 0.00000 | val = -0.241
+        (T_2m -1): pval = 0.00000 | val =  0.175
+        (tcw -1): pval = 0.00000 | val =  0.097
+        (tcw  0): pval = 0.00000 | val =  0.080
+
+    Variable T_2m has 7 link(s):
+        (T_2m -1): pval = 0.00000 | val =  0.707
+        (rad  0): pval = 0.00000 | val =  0.372
+        (rad -1): pval = 0.00000 | val =  0.243
+        (rad -2): pval = 0.00000 | val = -0.158
+        (tcw -2): pval = 0.00000 | val =  0.081
+        (tcw  0): pval = 0.00000 | val =  0.071
+        (tcw -1): pval = 0.00000 | val =  0.053

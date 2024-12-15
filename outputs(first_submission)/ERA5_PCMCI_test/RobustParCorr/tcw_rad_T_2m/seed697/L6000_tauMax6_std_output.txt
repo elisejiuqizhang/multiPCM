@@ -1,0 +1,93 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = robust_par_corr
+tau_min = 1
+tau_max = 6
+pc_alpha = [0.4]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable tcw has 1 link(s):
+        (tcw -1): max_pval = 0.00000, |min_val| =  0.855
+
+    Variable rad has 1 link(s):
+        (rad -1): max_pval = 0.00000, |min_val| =  0.828
+
+    Variable T_2m has 1 link(s):
+        (T_2m -1): max_pval = 0.00000, |min_val| =  0.773
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = robust_par_corr
+tau_min = 0
+tau_max = 6
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable tcw has 14 link(s):
+        (tcw -1): pval = 0.00000 | val =  0.893
+        (tcw -2): pval = 0.00000 | val = -0.395
+        (tcw -3): pval = 0.00000 | val = -0.285
+        (tcw -4): pval = 0.00000 | val = -0.237
+        (tcw -5): pval = 0.00000 | val = -0.203
+        (tcw -6): pval = 0.00000 | val = -0.175
+        (rad  0): pval = 0.00000 | val =  0.133 | unoriented link
+        (T_2m -1): pval = 0.00000 | val =  0.105
+        (rad -6): pval = 0.00000 | val = -0.093
+        (T_2m  0): pval = 0.00000 | val =  0.088 | unoriented link
+        (rad -1): pval = 0.00000 | val =  0.083
+        (T_2m -3): pval = 0.00000 | val =  0.064
+        (rad -5): pval = 0.00000 | val = -0.058
+        (T_2m -2): pval = 0.00000 | val =  0.056
+
+    Variable rad has 18 link(s):
+        (rad -1): pval = 0.00000 | val =  0.901
+        (T_2m  0): pval = 0.00000 | val =  0.458 | unoriented link
+        (rad -6): pval = 0.00000 | val = -0.376
+        (rad -5): pval = 0.00000 | val = -0.360
+        (T_2m -1): pval = 0.00000 | val =  0.357
+        (rad -4): pval = 0.00000 | val = -0.301
+        (rad -2): pval = 0.00000 | val = -0.265
+        (T_2m -6): pval = 0.00000 | val = -0.253
+        (rad -3): pval = 0.00000 | val = -0.236
+        (T_2m -5): pval = 0.00000 | val = -0.233
+        (tcw -1): pval = 0.00000 | val =  0.155
+        (T_2m -2): pval = 0.00000 | val =  0.144
+        (T_2m -4): pval = 0.00000 | val = -0.142
+        (tcw  0): pval = 0.00000 | val =  0.133 | unoriented link
+        (tcw -2): pval = 0.00000 | val =  0.122
+        (tcw -3): pval = 0.00000 | val =  0.080
+        (tcw -4): pval = 0.00000 | val =  0.062
+        (tcw -6): pval = 0.00000 | val =  0.051
+
+    Variable T_2m has 16 link(s):
+        (T_2m -1): pval = 0.00000 | val =  0.773
+        (rad  0): pval = 0.00000 | val =  0.458 | unoriented link
+        (rad -1): pval = 0.00000 | val =  0.355
+        (rad -3): pval = 0.00000 | val =  0.264
+        (rad -2): pval = 0.00000 | val =  0.245
+        (T_2m -5): pval = 0.00000 | val = -0.198
+        (rad -4): pval = 0.00000 | val =  0.131
+        (T_2m -4): pval = 0.00000 | val = -0.111
+        (tcw -1): pval = 0.00000 | val =  0.108
+        (tcw -2): pval = 0.00000 | val =  0.093
+        (tcw -6): pval = 0.00000 | val =  0.088
+        (tcw  0): pval = 0.00000 | val =  0.088 | unoriented link
+        (tcw -5): pval = 0.00000 | val =  0.086
+        (tcw -3): pval = 0.00000 | val =  0.074
+        (T_2m -6): pval = 0.00000 | val = -0.072
+        (tcw -4): pval = 0.00000 | val =  0.068

@@ -1,0 +1,60 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = cmi_knn
+tau_min = 1
+tau_max = 4
+pc_alpha = [0.2]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable X has 1 link(s):
+        (Y -3): max_pval = 0.00000, |min_val| =  0.214
+
+    Variable Y has 1 link(s):
+        (Y -1): max_pval = 0.00000, |min_val| =  0.260
+
+    Variable Z has 0 link(s):
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = cmi_knn
+tau_min = 0
+tau_max = 4
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable X has 1 link(s):
+        (Y -3): pval = 0.00000 | val =  0.215
+
+    Variable Y has 6 link(s):
+        (Y -1): pval = 0.00000 | val =  0.260
+        (Z  0): pval = 0.00000 | val =  0.121 | unoriented link
+        (Z -4): pval = 0.00000 | val =  0.083
+        (Z -3): pval = 0.00000 | val =  0.079
+        (Z -2): pval = 0.00000 | val =  0.074
+        (Z -1): pval = 0.00000 | val =  0.059
+
+    Variable Z has 9 link(s):
+        (Z -1): pval = 0.00000 | val =  0.837
+        (Z -2): pval = 0.00000 | val =  0.673
+        (Z -3): pval = 0.00000 | val =  0.662
+        (Z -4): pval = 0.00000 | val =  0.456
+        (Y -3): pval = 0.00000 | val =  0.197
+        (Y -4): pval = 0.00000 | val =  0.160
+        (Y -2): pval = 0.00000 | val =  0.159
+        (Y  0): pval = 0.00000 | val =  0.121 | unoriented link
+        (Y -1): pval = 0.00000 | val =  0.117

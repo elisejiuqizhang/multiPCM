@@ -1,0 +1,39 @@
+
+## Significant links at alpha = 0.05:
+
+    Variable tcw has 11 link(s):
+        (tcw -1): pval = 0.00000 | val =  0.829
+        (tcw -2): pval = 0.00000 | val = -0.294
+        (rad  0): pval = 0.00000 | val =  0.071
+        (T_2m  0): pval = 0.00028 | val =  0.047
+        (tcw -3): pval = 0.00062 | val =  0.044
+        (rad -4): pval = 0.00105 | val = -0.042
+        (T_2m -1): pval = 0.00173 | val =  0.040
+        (rad -2): pval = 0.00377 | val = -0.037
+        (rad -3): pval = 0.00697 | val = -0.035
+        (tcw -4): pval = 0.02038 | val = -0.030
+        (rad -1): pval = 0.04447 | val = -0.026
+
+    Variable rad has 10 link(s):
+        (rad -1): pval = 0.00000 | val =  0.786
+        (T_2m  0): pval = 0.00000 | val =  0.330
+        (rad -2): pval = 0.00000 | val = -0.251
+        (T_2m -1): pval = 0.00000 | val =  0.212
+        (T_2m -2): pval = 0.00000 | val = -0.133
+        (T_2m -4): pval = 0.00000 | val = -0.112
+        (T_2m -3): pval = 0.00000 | val = -0.098
+        (tcw  0): pval = 0.00000 | val =  0.071
+        (tcw -1): pval = 0.00000 | val =  0.062
+        (rad -4): pval = 0.00350 | val = -0.038
+
+    Variable T_2m has 10 link(s):
+        (T_2m -1): pval = 0.00000 | val =  0.722
+        (rad  0): pval = 0.00000 | val =  0.330
+        (rad -1): pval = 0.00000 | val =  0.275
+        (rad -2): pval = 0.00000 | val = -0.228
+        (rad -3): pval = 0.00000 | val = -0.116
+        (T_2m -4): pval = 0.00000 | val = -0.071
+        (T_2m -3): pval = 0.00008 | val =  0.051
+        (tcw  0): pval = 0.00028 | val =  0.047
+        (tcw -1): pval = 0.00073 | val =  0.044
+        (T_2m -2): pval = 0.00120 | val = -0.042

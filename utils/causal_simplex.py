@@ -321,10 +321,42 @@ class CM_rep_simplex:
 
     
 
+    # @staticmethod
+    # def get_distance_vanilla(M):
+    #     """ used for vanilla kNN!
+    #     Calculate the distances between each pair of points in M.
+        
+    #     Input: (2D array)
+    #         M: embedding of a variable, 2D array of shape (T_indices, embedding_dim)
+            
+    #     Output: (2D array)
+    #         t_steps: time indices
+    #         dists: distances between each pair of points in M, (T_indices x T_indices) array
+    #     """
+
+    #     # extract the temporal indices
+    #     T_max=M.shape[0]
+
+    #     # get the distances between each pair of points in M
+    #     dists=np.zeros((T_max,T_max))
+
+    #     # for i in range(T_max):
+    #     #     for j in range(T_max):
+    #     #         dists[i,j]=np.linalg.norm(M[i]-M[j])
+
+    #     # more efficient loop - only compute half of the matrix, all the diagonal elements are 0
+    #     for i in range(T_max):
+    #         for j in range(i+1,T_max):
+    #             dists[i,j]=np.linalg.norm(M[i]-M[j])
+    #             dists[j,i]=dists[i,j]       
+
+    #     return dists
+
     @staticmethod
-    def get_distance_vanilla(M):
+    def get_distance_vanilla(M, tol=1e-8):
         """ used for vanilla kNN!
-        Calculate the distances between each pair of points in M.
+        Calculate the distances between each pair of points in M. This will be a faster implementation than the previous one with loops. 
+        Credit to: @shubhamrajeevpunekar https://github.com/shubhamrajeevpunekar
         
         Input: (2D array)
             M: embedding of a variable, 2D array of shape (T_indices, embedding_dim)
@@ -334,23 +366,18 @@ class CM_rep_simplex:
             dists: distances between each pair of points in M, (T_indices x T_indices) array
         """
 
-        # extract the temporal indices
-        T_max=M.shape[0]
+        squared_norms=np.sum(np.square(M), axis=1, keepdims=True)
+        dot_product=M@M.T
+        pairwise_squared_dist=squared_norms+squared_norms.T-2*dot_product
 
-        # get the distances between each pair of points in M
-        dists=np.zeros((T_max,T_max))
+        # numerical stability
+        pairwise_squared_dist=np.maximum(pairwise_squared_dist, 0.0) # set the negative values to 0
+        pairwise_squared_dist[np.abs(pairwise_squared_dist)<tol]=0.0 # if the distance is very small, set it to 0
 
-        # for i in range(T_max):
-        #     for j in range(T_max):
-        #         dists[i,j]=np.linalg.norm(M[i]-M[j])
-
-        # more efficient loop - only compute half of the matrix, all the diagonal elements are 0
-        for i in range(T_max):
-            for j in range(i+1,T_max):
-                dists[i,j]=np.linalg.norm(M[i]-M[j])
-                dists[j,i]=dists[i,j]       
+        dists=np.sqrt(pairwise_squared_dist)
 
         return dists
+
         
 
     

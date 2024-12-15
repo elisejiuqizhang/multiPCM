@@ -1,0 +1,5 @@
+conda create -n multiPCM python=3.10
+conda activate multiPCM
+
+pip install causal-learn
+conda install scikit-learn scipy numpy pandas graphviz seaborn

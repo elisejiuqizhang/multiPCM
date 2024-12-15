@@ -1,0 +1,48 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = cmi_knn
+tau_min = 1
+tau_max = 1
+pc_alpha = [0.4]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable tcw has 1 link(s):
+        (tcw -1): max_pval = 0.00000, |min_val| =  1.115
+
+    Variable rad has 1 link(s):
+        (rad -1): max_pval = 0.00000, |min_val| =  0.958
+
+    Variable T_2m has 1 link(s):
+        (T_2m -1): max_pval = 0.00000, |min_val| =  1.375
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = cmi_knn
+tau_min = 0
+tau_max = 1
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable tcw has 1 link(s):
+        (tcw -1): pval = 0.00000 | val =  0.162
+
+    Variable rad has 1 link(s):
+        (rad -1): pval = 0.00000 | val =  0.217
+
+    Variable T_2m has 1 link(s):
+        (T_2m -1): pval = 0.00000 | val =  0.096

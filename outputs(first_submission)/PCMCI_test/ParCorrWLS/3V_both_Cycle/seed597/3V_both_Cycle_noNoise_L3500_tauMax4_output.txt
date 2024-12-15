@@ -1,0 +1,92 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = par_corr_wls
+tau_min = 1
+tau_max = 4
+pc_alpha = [0.1]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable X has 5 link(s):
+        (X -4): max_pval = 0.00000, |min_val| =  0.536
+        (X -2): max_pval = 0.00000, |min_val| =  0.459
+        (Y -2): max_pval = 0.00000, |min_val| =  0.287
+        (Y -1): max_pval = 0.00000, |min_val| =  0.154
+        (Z -2): max_pval = 0.00000, |min_val| =  0.139
+
+    Variable Y has 4 link(s):
+        (Z -1): max_pval = 0.00000, |min_val| =  0.388
+        (X -1): max_pval = 0.00000, |min_val| =  0.188
+        (Z -3): max_pval = 0.00000, |min_val| =  0.132
+        (X -4): max_pval = 0.00000, |min_val| =  0.122
+
+    Variable Z has 5 link(s):
+        (Y -3): max_pval = 0.00000, |min_val| =  0.626
+        (Y -1): max_pval = 0.00000, |min_val| =  0.609
+        (Z -2): max_pval = 0.00000, |min_val| =  0.550
+        (Z -4): max_pval = 0.00000, |min_val| =  0.279
+        (X -2): max_pval = 0.00000, |min_val| =  0.122
+
+##
+## Step 2: MCI algorithm
+##
+
+Parameters:
+
+independence test = par_corr_wls
+tau_min = 0
+tau_max = 4
+max_conds_py = None
+max_conds_px = None
+
+## Significant links at alpha = 0.05:
+
+    Variable X has 13 link(s):
+        (Y -2): pval = 0.00000 | val =  0.425
+        (X -4): pval = 0.00000 | val =  0.273
+        (X -1): pval = 0.00000 | val = -0.257
+        (Y -1): pval = 0.00000 | val =  0.228
+        (Z  0): pval = 0.00000 | val = -0.181 | unoriented link
+        (X -3): pval = 0.00000 | val =  0.162
+        (Y -4): pval = 0.00000 | val = -0.122
+        (X -2): pval = 0.00000 | val =  0.102
+        (Y  0): pval = 0.00000 | val = -0.086 | unoriented link
+        (Z -1): pval = 0.00000 | val = -0.076
+        (Z -2): pval = 0.00000 | val = -0.063
+        (Y -3): pval = 0.00000 | val = -0.060
+        (Z -4): pval = 0.00000 | val =  0.059
+
+    Variable Y has 9 link(s):
+        (Z  0): pval = 0.00000 | val = -0.491 | unoriented link
+        (X -1): pval = 0.00000 | val = -0.308
+        (Y -4): pval = 0.00000 | val =  0.190
+        (Y -3): pval = 0.00000 | val =  0.176
+        (X -3): pval = 0.00000 | val = -0.114
+        (Z -1): pval = 0.00000 | val = -0.110
+        (Y -1): pval = 0.00000 | val = -0.109
+        (Z -2): pval = 0.00000 | val =  0.104
+        (X  0): pval = 0.00000 | val = -0.086 | unoriented link
+
+    Variable Z has 14 link(s):
+        (Y -1): pval = 0.00000 | val = -0.801
+        (Y -3): pval = 0.00000 | val =  0.732
+        (Y -2): pval = 0.00000 | val =  0.546
+        (Y  0): pval = 0.00000 | val = -0.491 | unoriented link
+        (Z -4): pval = 0.00000 | val =  0.405
+        (X -3): pval = 0.00000 | val =  0.328
+        (X -2): pval = 0.00000 | val =  0.321
+        (Z -3): pval = 0.00000 | val = -0.240
+        (Y -4): pval = 0.00000 | val = -0.219
+        (X -1): pval = 0.00000 | val =  0.210
+        (Z -2): pval = 0.00000 | val =  0.203
+        (X  0): pval = 0.00000 | val = -0.181 | unoriented link
+        (Z -1): pval = 0.00000 | val =  0.158
+        (X -4): pval = 0.00000 | val =  0.058

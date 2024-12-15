@@ -1,0 +1,55 @@
+
+## Significant links at alpha = 0.03:
+
+    Variable W has 12 link(s):
+        (W -1): pval = 0.00000 | val = -0.461
+        (X -1): pval = 0.00000 | val = -0.152
+        (Y  0): pval = 0.00000 | val =  0.147
+        (X -2): pval = 0.00000 | val =  0.136
+        (W -3): pval = 0.00000 | val = -0.116
+        (X -4): pval = 0.00000 | val = -0.093
+        (Y -1): pval = 0.00001 | val =  0.069
+        (W -4): pval = 0.00138 | val =  0.051
+        (Y -2): pval = 0.00244 | val =  0.048
+        (Y -3): pval = 0.00251 | val =  0.048
+        (X  0): pval = 0.00459 | val =  0.045
+        (W -2): pval = 0.01566 | val =  0.038
+
+    Variable X has 7 link(s):
+        (X -1): pval = 0.00000 | val = -0.621
+        (X -3): pval = 0.00000 | val = -0.244
+        (X -2): pval = 0.00000 | val = -0.170
+        (X -4): pval = 0.00000 | val = -0.108
+        (Y  0): pval = 0.00041 | val =  0.056
+        (W  0): pval = 0.00459 | val =  0.045
+        (Y -2): pval = 0.02663 | val = -0.035
+
+    Variable Y has 16 link(s):
+        (W -2): pval = 0.00000 | val =  0.259
+        (X -2): pval = 0.00000 | val =  0.225
+        (Y -4): pval = 0.00000 | val =  0.171
+        (Z -2): pval = 0.00000 | val =  0.170
+        (X -1): pval = 0.00000 | val = -0.166
+        (W  0): pval = 0.00000 | val =  0.147
+        (Y -1): pval = 0.00000 | val = -0.119
+        (Z  0): pval = 0.00000 | val =  0.110
+        (Z -1): pval = 0.00000 | val = -0.104
+        (W -1): pval = 0.00000 | val = -0.084
+        (W -4): pval = 0.00001 | val = -0.071
+        (X  0): pval = 0.00041 | val =  0.056
+        (Y -3): pval = 0.00156 | val = -0.050
+        (Z -4): pval = 0.00165 | val = -0.050
+        (X -4): pval = 0.00175 | val = -0.050
+        (Y -2): pval = 0.00198 | val = -0.049
+
+    Variable Z has 10 link(s):
+        (Z -1): pval = 0.00000 | val = -0.503
+        (W -1): pval = 0.00000 | val = -0.181
+        (Y -2): pval = 0.00000 | val =  0.148
+        (W -3): pval = 0.00000 | val =  0.141
+        (Y  0): pval = 0.00000 | val =  0.110
+        (Z -3): pval = 0.00000 | val = -0.100
+        (W -4): pval = 0.00000 | val = -0.089
+        (Y -3): pval = 0.00232 | val =  0.048
+        (Y -4): pval = 0.01684 | val =  0.038
+        (Z -4): pval = 0.02841 | val =  0.035
