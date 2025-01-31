@@ -2,4 +2,8 @@ conda create -n multiPCM python=3.10
 conda activate multiPCM
 
 pip install causal-learn
-conda install scikit-learn scipy numpy pandas graphviz seaborn
+conda install scikit-learn scipy pandas graphviz seaborn
+pip install tigramite
+
+pip install numpy==1.23.5
+pip install cauaslnex

@@ -50,19 +50,19 @@ args=parser.parse_args()
 #     system_names = ['3V_both_noCycle', '4V_both_noCycle_1', '4V_both_noCycle_2', '4V_both_noCycle_3']
 
 if args.causality_type == 'direct':
-    systems = ['3V_direct', '4V_direct']
+    systems = ['3V_direct', '4V_direct', '5V_direct', '6V_direct', '7V_direct']
 elif args.causality_type == 'indirect':
-    systems = ['3V_indirect', '4V_indirect']
+    systems = ['3V_indirect', '4V_indirect', '5V_indirect', '6V_indirect', '7V_indirect']
 elif args.causality_type == 'both':
-    systems = ['3V_both_Cycle', '3V_both_noCycle', '4V_both_Cycle', '4V_both_noCycle']
+    systems = ['3V_both_Cycle', '3V_both_noCycle', '4V_both_Cycle', '4V_both_noCycle', '5V_both_Cycle', '5V_both_noCycle', '6V_both_Cycle', '6V_both_noCycle', '7V_both_Cycle', '7V_both_noCycle']
 elif args.causality_type == 'both_Cycle':
-    systems = ['3V_both_Cycle', '4V_both_Cycle']
+    systems = ['3V_both_Cycle', '4V_both_Cycle', '5V_both_Cycle', '6V_both_Cycle', '7V_both_Cycle']
 elif args.causality_type == 'both_noCycle':
-    systems = ['3V_both_noCycle', '4V_both_noCycle']
+    systems = ['3V_both_noCycle', '4V_both_noCycle', '5V_both_noCycle', '6V_both_noCycle', '7V_both_noCycle']
 
 
 # folder to store outputs
-save_dir = os.path.join(root,'outputs', 'multiPCM_ratioThres_viz', args.causality_type)
+save_dir = os.path.join(root,'outputs', 'multiPCM_ratioThres_viz', args.causality_type, str(args.seed))
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 if args.noiseType!=None and args.noiseType.lower()!='none':
@@ -88,6 +88,9 @@ if args.seed!=None: # only plot for one seed
             elif system=='4V_direct' or system=='4V_indirect':
                 prefix = system+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
                 file_names = [prefix+'_1', prefix+'_2']
+            else:
+                prefix = system+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
+                file_names = [prefix]
         else:
             if system=='3V_direct' or system=='4V_both_noCycle' or system=='4V_both_Cycle':
                 prefix=system+'_noNoise'
@@ -97,6 +100,9 @@ if args.seed!=None: # only plot for one seed
             elif system=='4V_direct' or system=='4V_indirect':
                 prefix=system+'_noNoise'
                 file_names = [prefix+'_1', prefix+'_2']
+            else:
+                prefix=system+'_noNoise'
+                file_names = [prefix]
 
         for file_name in file_names:
             sample_names.append(file_name)

@@ -362,7 +362,6 @@ class CM_rep_simplex:
             M: embedding of a variable, 2D array of shape (T_indices, embedding_dim)
             
         Output: (2D array)
-            t_steps: time indices
             dists: distances between each pair of points in M, (T_indices x T_indices) array
         """
 

@@ -7,6 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import graphviz
 
+import time # to track runtime
+
 from data_loaders.generated.multivar import MyMultivarData
 
 import causallearn
@@ -15,6 +17,7 @@ from causallearn.utils.cit import kci
 from causallearn.search.ConstraintBased.FCI import fci
 from causallearn.search.ScoreBased.GES import ges
 from causallearn.search.FCMBased import lingam
+from causallearn.search.Granger.Granger import Granger
 
 # visualize adjacency matrix
 import networkx as nx
@@ -37,7 +40,7 @@ parser.add_argument('--noiseType', type=str, default='None', help='type of noise
 parser.add_argument('--noiseInjectType', type=str, default='add', help='type of noise injection. Options: add, mult, both')
 parser.add_argument('--noiseLevel', type=float, default=1e-2, help='noise level')
 
-parser.add_argument('--method', type=str, default='lingam', help='name of causal learning method: pc, fci, lingam')
+parser.add_argument('--method', type=str, default='lingam', help='name of causal learning method: pc, fci, lingam(var-lingam), granger')
 
 args=parser.parse_args()
 
@@ -67,7 +70,8 @@ if args.noiseType!=None and args.noiseType.lower()!='none': # with noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix = args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
         file_names = [prefix+'_1', prefix+'_2']
-        # file_names = [prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}']
 else: # no noise
     if args.causality_type == '3V_direct' or args.causality_type=='4V_both_noCycle' or args.causality_type=='4V_both_Cycle':
         prefix=args.causality_type+'_noNoise'
@@ -77,13 +81,33 @@ else: # no noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix=args.causality_type+'_noNoise'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+'_noNoise']
 
+if args.causality_type=='3V_direct' or args.causality_type=='3V_indirect' or args.causality_type=='3V_both_Cycle' or args.causality_type=='3V_both_noCycle' or args.causality_type=='3V_immorality':
+    n_vars=3
+    var_names=['X','Y','Z']
+elif args.causality_type=='4V_direct' or args.causality_type=='4V_indirect' or args.causality_type=='4V_both_Cycle' or args.causality_type=='4V_both_noCycle':
+    n_vars=4
+    var_names=['W','X','Y','Z']
 if args.causality_type=='3V_direct' or args.causality_type=='3V_indirect' or args.causality_type=='3V_both_Cycle' or args.causality_type=='3V_both_noCycle':
     n_vars=3
     var_names=['X','Y','Z']
 elif args.causality_type=='4V_direct' or args.causality_type=='4V_indirect' or args.causality_type=='4V_both_Cycle' or args.causality_type=='4V_both_noCycle':
     n_vars=4
     var_names=['W','X','Y','Z']
+elif args.causality_type=='5V_direct' or args.causality_type=='5V_indirect' or args.causality_type=='5V_both_Cycle' or args.causality_type=='5V_both_noCycle':
+    n_vars=5
+    var_names=['V','W','X','Y','Z']
+elif args.causality_type=='6V_direct' or args.causality_type=='6V_indirect' or args.causality_type=='6V_both_Cycle' or args.causality_type=='6V_both_noCycle':
+    n_vars=6
+    var_names=['U','V','W','X','Y','Z']
+elif args.causality_type=='7V_direct' or args.causality_type=='7V_indirect' or args.causality_type=='7V_both_Cycle' or args.causality_type=='7V_both_noCycle':
+    n_vars=7
+    var_names=['T','U','V','W','X','Y','Z']
+elif args.causality_type=='8V_direct' or args.causality_type=='8V_indirect' or args.causality_type=='8V_both_Cycle' or args.causality_type=='8V_both_noCycle':
+    n_vars=8
+    var_names=['S','T','U','V','W','X','Y','Z']
 
 
 # usage following https://notebook.community/jakobrunge/tigramite/tutorials/tigramite_tutorial_basics
@@ -149,16 +173,24 @@ for file_name in file_names:
 
 
     elif args.method=='lingam':
-        model = lingam.ICALiNGAM(random_state=args.seed, max_iter=int(1e5))
+        # model = lingam.ICALiNGAM(random_state=args.seed, max_iter=int(1e5))
+        # model.fit(data)
+        # order=model.causal_order_
+        # adj_matrix=model.adjacency_matrix_
+
+        model = lingam.VARLiNGAM(random_state=args.seed, prune=True, criterion='bic')
+        start_time = time.time()
         model.fit(data)
+        time_spent = time.time() - start_time
         order=model.causal_order_
-        adj_matrix=model.adjacency_matrix_
+        adj_matrix=model.adjacency_matrices_[1]
         # visualization
         G=nx.DiGraph()
         G.add_nodes_from(var_names)
         for i in range(adj_matrix.shape[0]):
             for j in range(adj_matrix.shape[1]):
-                if adj_matrix[i,j]!=0:
+                # if adj_matrix[i,j]!=0:
+                if abs(adj_matrix[i,j])>0.05:
                     G.add_edge(var_names[i], var_names[j])
         # save results
         with open(os.path.join(save_dir, file_name+'_order.txt'), 'w') as f:
@@ -168,3 +200,43 @@ for file_name in file_names:
         nx.draw(G, with_labels=True)
         plt.savefig(os.path.join(save_dir, file_name+'_lingam_graph.png'))
         plt.close()
+        # save the time spent
+        with open(os.path.join(save_dir, file_name+'_time.txt'), 'w') as f:
+            f.write(str(time_spent))
+
+
+        # model = lingam.VARLiNGAM(random_state=args.seed, lags=2, prune=True, criterion='bic')
+        # start_time = time.time()
+        # model.fit(data)
+        # total_effects=model.bootstrap(data, n_sampling=20).get_total_causal_effects()
+        # time_spent = time.time() - start_time
+        # order=model.causal_order_
+        # #save total_effects
+        # np.save(os.path.join(save_dir, file_name+'_total_effects.npy'), total_effects)
+        # # save the time spent
+        # with open(os.path.join(save_dir, file_name+'_time.txt'), 'w') as f:
+        #     f.write(str(time_spent))
+
+    elif args.method=='granger':
+        model = Granger(maxlag=1)
+        start_time = time.time()
+        coef=model.granger_lasso(data)
+        time_spent = time.time() - start_time
+        # save the coef
+        np.save(os.path.join(save_dir, file_name+'_coef.npy'), coef)
+        # visualization
+        G=nx.DiGraph()
+        G.add_nodes_from(var_names)
+        for i in range(coef.shape[0]):
+            for j in range(coef.shape[1]):
+                # if coef[i,j]!=0:
+                if abs(coef[i,j])>0.05:
+                    G.add_edge(var_names[i], var_names[j])
+        # visualize graph
+        nx.draw(G, with_labels=True)
+        plt.savefig(os.path.join(save_dir, file_name+'_granger_graph.png'))
+        plt.close()
+        
+        # save the time spent
+        with open(os.path.join(save_dir, file_name+'_time.txt'), 'w') as f:
+            f.write(str(time_spent))

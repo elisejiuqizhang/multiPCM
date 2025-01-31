@@ -35,6 +35,11 @@ parser.add_argument('--effect', type=str, default='Y')
 
 args=parser.parse_args()
 
+# set seeds
+seed=args.seed
+random.seed(seed)
+np.random.seed(seed)
+
 # list of PCM thresholds
 list_pcm_thres = np.arange(0.05, 1.0, 0.05)
 
@@ -54,12 +59,13 @@ if args.noiseType!=None and args.noiseType.lower()!='none': # with noise
     if args.causality_type == '3V_direct' or args.causality_type=='4V_both_noCycle' or args.causality_type=='4V_both_Cycle':
         prefix = args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
         file_names = [prefix+'_1', prefix+'_2', prefix+'_3']
-        # file_names = [prefix+'_3']
     elif args.causality_type == '3V_indirect' or args.causality_type=='3V_both_noCycle' or args.causality_type=='3V_both_Cycle':
         file_names = [args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}']
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix = args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}']
 else: # no noise
     if args.causality_type == '3V_direct' or args.causality_type=='4V_both_noCycle' or args.causality_type=='4V_both_Cycle':
         prefix=args.causality_type+'_noNoise'
@@ -69,6 +75,8 @@ else: # no noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix=args.causality_type+'_noNoise'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+'_noNoise']
 
 for file_name in file_names:
     # load data
@@ -102,12 +110,17 @@ for file_name in file_names:
         arr_label[arr_ratio>list_pcm_thres]=1 # ratio of indirectError over directError larger than threshold (significantly increased), then likely the other vars are condition
         arr_label[mask]=0 # ratio of indirectCorr over directCorr close enough, then likely the other vars are not condition
         
-    elif args.score_type=='corr' or args.score_type=='r2':
+    elif args.score_type=='corr':
         arr_ratio=np.full((len(list_pcm_thres)), output[5]) # the sixth output, the ratio of correlation
         mask=(arr_ratio>0.95)&(arr_ratio<1.05)
         arr_label[arr_ratio<list_pcm_thres]=1 # ratio of indirectCorr over directCorr smaller than threshold (significantly decreased), then likely the other vars are condition
         arr_label[mask]=0 # ratio of indirectCorr over directCorr close enough, then likely the other vars are not condition
         
+    elif args.score_type=='r2':
+        arr_ratio=np.full((len(list_pcm_thres)), output[8])
+        mask=(arr_ratio>0.95)&(arr_ratio<1.05)
+        arr_label[arr_ratio<list_pcm_thres]=1
+        arr_label[mask]=0
 
     # save the labels
     # thres range and labels together
@@ -116,7 +129,6 @@ for file_name in file_names:
 
     # plot the ratio and labels
     plt.plot(list_pcm_thres, arr_label, label='label')
-
     plt.xlabel('PCM threshold')
     plt.ylabel('Label')
     plt.title(f'Predicted labels for causality between {args.cause} and {args.effect} in {file_name}')

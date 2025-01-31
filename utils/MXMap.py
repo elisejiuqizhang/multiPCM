@@ -35,7 +35,7 @@ class MXMap:
     **kwargs: dict for additional CM and PCM parameters, whether to use PCA on embedding first 
     before doing kNN during cross mapping."""
 
-    def __init__(self, df, score_type='corr', tau=2, emd=8, bivCCM_thres=1, pcm_thres=0.5, **kwargs):
+    def __init__(self, df, score_type='corr', tau=2, emd=8, pcm_thres=0.5, **kwargs):
         
         self.df = df # the dataframe, extract the column names or indices, determine the causal graph
         self.kwargs = kwargs # dictionary of other parameters, including the CM and PCM parameters
@@ -46,8 +46,6 @@ class MXMap:
 
         self.tau = tau # time delay for time delay embedding
         self.emd = emd
-
-        self.bivCCM_thres = bivCCM_thres # threshold for bivariate CCM edge removal - the ratio of sc1/sc2
 
         self.pcm_thres = pcm_thres # threshold for PCM edge removal
 

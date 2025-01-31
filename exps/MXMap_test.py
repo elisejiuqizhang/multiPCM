@@ -12,10 +12,12 @@ from data_loaders.generated.multivar import MyMultivarData
 from utils.causal_simplex import PCM_simplex
 from utils.MXMap import MXMap
 
+import time # use this to track time spent on each system
+
 import argparse
 parser=argparse.ArgumentParser("single experiment of MXMap on simulated data")
 parser.add_argument('--data_dir', type=str, default='data_files/data/gen')
-parser.add_argument('--causality_type', type=str, default='4V_both_noCycle', help='Options: 3V_direct, 3V_indirect, 3V_both_Cycle, 3V_both_noCycle, 4V_direct, 4V_indirect, 4V_both_Cycle, 4V_both_noCycle')
+parser.add_argument('--causality_type', type=str, default='8V_direct', help='Options: 3V_direct, 3V_indirect, 3V_both_Cycle, 3V_both_noCycle, 4V_direct, 4V_indirect, 4V_both_Cycle, 4V_both_noCycle')
 
 parser.add_argument('--seed', type=int, default=197, help='random seed, for sampling a random start point for input time series')
 
@@ -25,8 +27,8 @@ parser.add_argument('--noiseType', type=str, default='None', help='type of noise
 parser.add_argument('--noiseInjectType', type=str, default='add', help='type of noise injection. Options: add, mult, both')
 parser.add_argument('--noiseLevel', type=float, default=1e-2, help='noise level')
 
-parser.add_argument('--tau', type=int, default=1, help="Cross mapping tau-lag")
-parser.add_argument('--emd', type=int, default=4, help="Cross mapping embedding dimension")
+parser.add_argument('--tau', type=int, default=2, help="Cross mapping tau-lag")
+parser.add_argument('--emd', type=int, default=6, help="Cross mapping embedding dimension")
 parser.add_argument('--knn', type=int, default=10, help="Neighborhood size")
 
 parser.add_argument('--kNN_model', type=str, default='vanilla') # Options are 'PCA' or 'vanilla'
@@ -68,6 +70,8 @@ if args.noiseType!=None and args.noiseType.lower()!='none': # with noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix = args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}']
 else: # no noise
     if args.causality_type == '3V_direct' or args.causality_type=='4V_both_noCycle' or args.causality_type=='4V_both_Cycle':
         prefix=args.causality_type+'_noNoise'
@@ -77,6 +81,8 @@ else: # no noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix=args.causality_type+'_noNoise'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+'_noNoise']
 
 
 for file_name in file_names:
@@ -92,11 +98,18 @@ for file_name in file_names:
         model=MXMap(df, tau=args.tau, emd=args.emd, score_type=args.score_type, bivCCM_thres=args.bivCCM_thres, pcm_thres=args.pcm_thres, knn=args.knn, L=args.L, method=args.kNN_model, pca_dim=args.pca_dim)
     else:
         model=MXMap(df, tau=args.tau, emd=args.emd, score_type=args.score_type, bivCCM_thres=args.bivCCM_thres, pcm_thres=args.pcm_thres, knn=args.knn, L=args.L, method=args.kNN_model)
+    
+    start_time = time.time()
     ch=model.fit()
+    time_spent = time.time() - start_time
+
     model.draw_graph(file_dir)
 
-    print('ch:', ch)
+    print('Time spent:', time_spent)
+    with open(file_dir+'_time.txt', 'w') as f:
+        f.write(str(time_spent))
 
+    print('ch:', ch)
     with open(file_dir+'_ch.txt', 'w') as f:
         f.write(str(ch))
 

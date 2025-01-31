@@ -13,7 +13,7 @@ from utils.causal_simplex import PCM_simplex
 import argparse
 parser = argparse.ArgumentParser("single experiment of PCM on synthetic data")
 parser.add_argument('--data_dir', type=str, default='data_files/data/gen')
-parser.add_argument('--causality_type', type=str, default='3V_indirect', help='Options: 3V_direct, 3V_indirect, 3V_both_Cycle, 3V_both_noCycle, 4V_direct, 4V_indirect, 4V_both_Cycle, 4V_both_noCycle')
+parser.add_argument('--causality_type', type=str, default='5V_direct', help='Options: 3V_direct, 3V_indirect, 3V_both_Cycle, 3V_both_noCycle, 4V_direct, 4V_indirect, 4V_both_Cycle, 4V_both_noCycle')
 
 parser.add_argument('--seed', type=int, default=97, help='random seed, for sampling a random start point for input time series')
 
@@ -62,6 +62,8 @@ if args.noiseType!=None and args.noiseType.lower()!='none': # with noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix = args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}']
 else: # no noise
     if args.causality_type == '3V_direct' or args.causality_type=='4V_both_noCycle' or args.causality_type=='4V_both_Cycle':
         prefix=args.causality_type+'_noNoise'
@@ -71,6 +73,8 @@ else: # no noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix=args.causality_type+'_noNoise'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+'_noNoise']
 
 
 for file_name in file_names:

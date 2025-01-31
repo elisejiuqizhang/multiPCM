@@ -19,9 +19,9 @@ from tigramite.pcmci import PCMCI
 from tigramite.independence_tests.parcorr import ParCorr
 from tigramite.independence_tests.robust_parcorr import RobustParCorr
 from tigramite.independence_tests.parcorr_wls import ParCorrWLS
-from tigramite.independence_tests.gpdc import GPDC
-from tigramite.independence_tests.cmiknn import CMIknn
-from tigramite.independence_tests.cmisymb import CMIsymb
+# from tigramite.independence_tests.gpdc import GPDC
+# from tigramite.independence_tests.cmiknn import CMIknn
+# from tigramite.independence_tests.cmisymb import CMIsymb
 
 import argparse
 import contextlib
@@ -39,9 +39,9 @@ parser.add_argument('--season_rm', type=str, default=None, help="Options are Non
 parser.add_argument('--seed', type=int, default=97, help='random seed, for sampling a random start point for input time series')
 
 parser.add_argument('--L', type=int, default=6000, help='length of input time series')
-parser.add_argument('--corrType', type=str, default='RobustParCorr', help='name of correlation scores: ParCorr, RobustParCorr')
-parser.add_argument('--tau_max', type=int, default=5, help="Max lag value for PCMCI")
-parser.add_argument('--alpha', type=float, default=0.05, help="Significance level for PCMCI")
+parser.add_argument('--corrType', type=str, default='ParCorr', help='name of correlation scores: ParCorr, RobustParCorr')
+parser.add_argument('--tau_max', type=int, default=2, help="Max lag value for PCMCI")
+parser.add_argument('--alpha', type=float, default=0.2, help="Significance level for PCMCI")
 
 # name of 3 variables
 parser.add_argument('--X_name', type=str, default='tcw')
@@ -60,14 +60,30 @@ save_dir = os.path.join(root, 'outputs', 'ERA5_PCMCI_test', args.corrType, args.
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
-# var_list
+# var_names
 X_name=args.X_name
 Y_name=args.Y_name
 Z_name=args.Z_name
-var_list = [X_name, Y_name, Z_name]
+var_names = [X_name, Y_name, Z_name]
+
+# var_names = ['tcw', 'rad', 'T_adv_950', 'T_2m'] # to be manually set
+# var_names = ['tcw', 'terr_rad', 'T_adv_950', 'T_2m']
+# var_names = ['tcw', 'solar_rad', 'T_adv_950', 'T_2m']
+var_names = ['tcw', 'terr_rad', 'solar_rad', 'T_adv_950', 'T_2m']
+
+n_vars=len(var_names)
+# file_name = X_name+'_'+Y_name+'_'+Z_name
+for i in range(n_vars):
+    if i==0:
+        file_name=var_names[i]
+    else:
+        file_name+='_'+var_names[i]
+
+
+
 # load data
 dataset=ERA5MultivarData(csv_path=os.path.join(root, args.data_dir, args.csv),
-                         var_list=var_list, 
+                         var_list=var_names, 
                          winter_start_month=args.w_start, 
                          winter_end_month=args.w_end, 
                          scaler=args.scaler, 
@@ -79,7 +95,7 @@ start_idx=random.randint(0, len(df)-args.L)
 df=df[start_idx:start_idx+args.L]
 
 # transform to tigramite dataframe
-dataframe = pp.DataFrame(df.values, datatime=np.arange(args.L), var_names=var_list)
+dataframe = pp.DataFrame(df.values, datatime=np.arange(args.L), var_names=var_names)
 
 # choose correlation type
 
@@ -92,12 +108,12 @@ elif args.corrType=='RobustParCorr':
 elif args.corrType=='ParCorrWLS':
     # parcorr = ParCorrWLS(significance='analytic')
     parcorr = ParCorrWLS(significance='fixed_thres')
-elif args.corrType=='GPDC':
-    parcorr = GPDC(significance='fixed_thres')
-elif args.corrType=='CMIknn':
-    parcorr = CMIknn(significance='fixed_thres')
-elif args.corrType=='CMIsymb':
-    parcorr=CMIsymb(significance='fixed_thres')
+# elif args.corrType=='GPDC':
+#     parcorr = GPDC(significance='fixed_thres')
+# elif args.corrType=='CMIknn':
+#     parcorr = CMIknn(significance='fixed_thres')
+# elif args.corrType=='CMIsymb':
+#     parcorr=CMIsymb(significance='fixed_thres')
 else:
     raise ValueError(f'corrType {args.corrType} not recognized')
 
@@ -106,7 +122,7 @@ pcmci = PCMCI(dataframe=dataframe, cond_ind_test=parcorr, verbosity=1)
 
 # # plot the lagged correlations
 # correlations = pcmci.get_lagged_dependencies(tau_max=25, val_only=True)['val_matrix']
-# lag_func_matrix = tp.plot_lagfuncs(val_matrix=correlations, setup_args={'var_names': var_list, 'x_base':5, 'y_base':.5})
+# lag_func_matrix = tp.plot_lagfuncs(val_matrix=correlations, setup_args={'var_names': var_names, 'x_base':5, 'y_base':.5})
 # # plt.show()
 # plt.savefig(os.path.join(save_dir, 'lagged_correlations.png'))
 # plt.close()
@@ -134,7 +150,7 @@ with open(link_output_file, 'w') as f:
                                             alpha_level = args.alpha)
         
 # plot the graph
-tp.plot_graph(graph=results['graph'], val_matrix=results['val_matrix'], var_names=var_list)
+tp.plot_graph(graph=results['graph'], val_matrix=results['val_matrix'], var_names=var_names)
 plt.savefig(os.path.join(save_dir, file_save_name+f'_alpha{args.alpha}_graph.png'))
 plt.close()
 
@@ -142,7 +158,7 @@ tp.plot_time_series_graph(
     figsize=(6, 4),  
     val_matrix=results['val_matrix'],  
     graph=results['graph'],  
-    var_names=var_list,  
+    var_names=var_names,  
     link_colorbar_label='MCI',  
     )
 plt.savefig(os.path.join(save_dir, file_save_name+f'_alpha{args.alpha}_tsgraph.png'))

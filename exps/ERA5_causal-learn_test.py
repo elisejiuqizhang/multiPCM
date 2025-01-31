@@ -15,6 +15,7 @@ from causallearn.utils.cit import kci
 from causallearn.search.ConstraintBased.FCI import fci
 from causallearn.search.ScoreBased.GES import ges
 from causallearn.search.FCMBased import lingam
+from causallearn.search.Granger.Granger import Granger
 
 # visualize adjacency matrix
 import networkx as nx
@@ -39,7 +40,7 @@ parser.add_argument('--seed', type=int, default=97, help='random seed, for sampl
 
 parser.add_argument('--L', type=int, default=6000, help='length of input time series')
 
-parser.add_argument('--method', type=str, default='pc', help='name of causal learning method: pc, fci, lingam')
+parser.add_argument('--method', type=str, default='granger', help='name of causal learning method: pc, fci, lingam')
 
 # name of 3 variables
 parser.add_argument('--X_name', type=str, default='tcw')
@@ -65,7 +66,18 @@ Y_name=args.Y_name
 Z_name=args.Z_name
 var_names = [X_name, Y_name, Z_name]
 
-file_name = X_name+'_'+Y_name+'_'+Z_name
+# var_names = ['tcw', 'rad', 'T_adv_950', 'T_2m'] # to be manually set
+# var_names = ['tcw', 'terr_rad', 'T_adv_950', 'T_2m']
+# var_names = ['tcw', 'solar_rad', 'T_adv_950', 'T_2m']
+var_names = ['tcw', 'terr_rad', 'solar_rad', 'T_adv_950', 'T_2m']
+
+n_vars=len(var_names)
+# file_name = X_name+'_'+Y_name+'_'+Z_name
+for i in range(n_vars):
+    if i==0:
+        file_name=var_names[i]
+    else:
+        file_name+='_'+var_names[i]
 
 # load data
 dataset=ERA5MultivarData(csv_path=os.path.join(root, args.data_dir, args.csv),
@@ -85,7 +97,8 @@ data=df.values
 # choose a method
 if args.method=='pc':
     # independence test method: 'fisherz', 'chisq','gsq', 'kci', 'mv_fisherz' - run all
-    list_ind_test=['fisherz', 'chisq','gsq', 'kci', 'mv_fisherz']
+    # list_ind_test=['fisherz', 'chisq','gsq', 'kci', 'mv_fisherz']
+    list_ind_test=['fisherz']
     for ind_test in list_ind_test:
         cg = pc(data=data, alpha=0.05, indep_test=ind_test, stable=True, uc_rule=1, uc_priority=2, mvpc=False, correction_name='MV_Crtn_Fisher_Z', background_knowledge=None, verbose=True, show_progress=True)
         # visualize graphs
@@ -125,10 +138,17 @@ elif args.method=='ges':
         pydot_graph.write_png(os.path.join(save_dir, file_name+f'_ges_{sc_func}_graph.png'))
 
 elif args.method=='lingam':
-    model=lingam.ICALiNGAM(random_state=args.seed, max_iter=int(1e5))
+    # model=lingam.ICALiNGAM(random_state=args.seed, max_iter=int(1e5))
+    # model.fit(data)
+    # order=model.causal_order_
+    # adj_matrix=model.adjacency_matrix_
+
+    model = lingam.VARLiNGAM(random_state=args.seed, prune=True, criterion='bic')
     model.fit(data)
     order=model.causal_order_
-    adj_matrix=model.adjacency_matrix_
+    adj_matrix=model.adjacency_matrices_[1]
+
+
     # visualization
     G=nx.DiGraph()
     G.add_nodes_from(var_names)
@@ -143,3 +163,20 @@ elif args.method=='lingam':
     # visualize graph
     nx.draw(G, with_labels=True)
     plt.savefig(os.path.join(save_dir, file_name+'_lingam_graph.png'))   
+
+elif args.method=='granger':
+    model = Granger(maxlag=1)
+    coef=model.granger_lasso(data)
+    # save the coef
+    np.save(os.path.join(save_dir, file_name+'_granger_coef.npy'), coef)
+    # visualize graph
+    G=nx.DiGraph()
+    G.add_nodes_from(var_names)
+    for i in range(len(var_names)):
+        for j in range(len(var_names)):
+            if coef[i,j]!=0:
+                G.add_edge(var_names[i], var_names[j])
+    # visualize graph
+    nx.draw(G, with_labels=True)
+    plt.savefig(os.path.join(save_dir, file_name+'_granger_graph.png'))
+    plt.close()

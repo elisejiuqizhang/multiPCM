@@ -22,11 +22,11 @@ from tigramite.independence_tests.parcorr import ParCorr
 from tigramite.independence_tests.robust_parcorr import RobustParCorr
 
 from tigramite.independence_tests.parcorr_wls import ParCorrWLS   
-from tigramite.independence_tests.gpdc import GPDC  
-from tigramite.independence_tests.cmiknn import CMIknn  
-from tigramite.independence_tests.cmisymb import CMIsymb  
-from tigramite.independence_tests.gsquared import Gsquared  
-from tigramite.independence_tests.regressionCI import RegressionCI
+# from tigramite.independence_tests.gpdc import GPDC  
+# from tigramite.independence_tests.cmiknn import CMIknn  
+# from tigramite.independence_tests.cmisymb import CMIsymb  
+# from tigramite.independence_tests.gsquared import Gsquared  
+# from tigramite.independence_tests.regressionCI import RegressionCI
 
 # from tigramite.independence_tests.gpdc import GPDC # missing dcor?
 # from tigramite.independence_tests.cmiknn import CMIknn # missing numba?
@@ -74,6 +74,7 @@ if not os.path.exists(save_dir):
 # 4V_both_noCycle and 4V_both_Cycle have 3 structures, denoted as _1, _2, _3 (pas encore fait - note Oct.9)
 
 # get file name list
+# get file name list
 if args.noiseType!=None and args.noiseType.lower()!='none': # with noise
     if args.causality_type == '3V_direct' or args.causality_type=='4V_both_noCycle' or args.causality_type=='4V_both_Cycle':
         prefix = args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
@@ -83,6 +84,8 @@ if args.noiseType!=None and args.noiseType.lower()!='none': # with noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix = args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+f'_{args.noiseType}_{args.noiseInjectType}_{args.noiseLevel}']
 else: # no noise
     if args.causality_type == '3V_direct' or args.causality_type=='4V_both_noCycle' or args.causality_type=='4V_both_Cycle':
         prefix=args.causality_type+'_noNoise'
@@ -92,13 +95,28 @@ else: # no noise
     elif args.causality_type == '4V_direct' or args.causality_type=='4V_indirect':
         prefix=args.causality_type+'_noNoise'
         file_names = [prefix+'_1', prefix+'_2']
+    else: # beyond 4V, only one case each
+        file_names = [args.causality_type+'_noNoise']
 
-if args.causality_type=='3V_direct' or args.causality_type=='3V_indirect' or args.causality_type=='3V_both_Cycle' or args.causality_type=='3V_both_noCycle':
+
+if args.causality_type=='3V_direct' or args.causality_type=='3V_indirect' or args.causality_type=='3V_both_Cycle' or args.causality_type=='3V_both_noCycle' or args.causality_type=='3V_immorality':
     n_vars=3
     var_names=['X','Y','Z']
 elif args.causality_type=='4V_direct' or args.causality_type=='4V_indirect' or args.causality_type=='4V_both_Cycle' or args.causality_type=='4V_both_noCycle':
     n_vars=4
     var_names=['W','X','Y','Z']
+elif args.causality_type=='5V_direct' or args.causality_type=='5V_indirect' or args.causality_type=='5V_both_Cycle' or args.causality_type=='5V_both_noCycle':
+    n_vars=5
+    var_names=['V','W','X','Y','Z']
+elif args.causality_type=='6V_direct' or args.causality_type=='6V_indirect' or args.causality_type=='6V_both_Cycle' or args.causality_type=='6V_both_noCycle':
+    n_vars=6
+    var_names=['U','V','W','X','Y','Z']
+elif args.causality_type=='7V_direct' or args.causality_type=='7V_indirect' or args.causality_type=='7V_both_Cycle' or args.causality_type=='7V_both_noCycle':
+    n_vars=7
+    var_names=['T','U','V','W','X','Y','Z']
+elif args.causality_type=='8V_direct' or args.causality_type=='8V_indirect' or args.causality_type=='8V_both_Cycle' or args.causality_type=='8V_both_noCycle':
+    n_vars=8
+    var_names=['S','T','U','V','W','X','Y','Z']
 
 
 # usage following https://notebook.community/jakobrunge/tigramite/tutorials/tigramite_tutorial_basics
@@ -130,12 +148,12 @@ for file_name in file_names:
     elif args.corrType=='ParCorrWLS':
         # parcorr = ParCorrWLS(significance='analytic')
         parcorr = ParCorrWLS(significance='fixed_thres')
-    elif args.corrType=='GPDC':
-        parcorr=GPDC(significance='fixed_thres')
-    elif args.corrType=='CMIknn':
-        parcorr=CMIknn(significance='fixed_thres')
-    elif args.corrType=='CMIsymb':
-        parcorr=CMIsymb(significance='fixed_thres')
+    # elif args.corrType=='GPDC':
+    #     parcorr=GPDC(significance='fixed_thres')
+    # elif args.corrType=='CMIknn':
+    #     parcorr=CMIknn(significance='fixed_thres')
+    # elif args.corrType=='CMIsymb':
+    #     parcorr=CMIsymb(significance='fixed_thres')
     else:
         raise ValueError(f'corrType {args.corrType} not recognized')
 
